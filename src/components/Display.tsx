@@ -12,7 +12,7 @@ const getBackgroundColor = (displayValue?: string): any => {
 	} else if (displayValue === '3a') {
 		theme.backgroundColor = 'orange';
 	} else if (displayValue === '2') {
-		theme.backgroundColor = 'yellow';
+		theme.backgroundColor = '#fed8b1';
 	} else if (displayValue === '1') {
 		theme.backgroundColor = 'green';
 	} else {
@@ -28,11 +28,13 @@ const DisplayScreen = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 `;
 
 const DisplayValue = styled.div`
 	font-size: 42px;
+	display: flex;
+	justify-content: center;
 `;
 
 type Props = {
@@ -44,8 +46,12 @@ const Display: React.FC<Props> = ({ displayValue, displayString }) => {
 	return (
 		<ThemeProvider theme={getBackgroundColor(displayValue)}>
 			<DisplayScreen>
-				<DisplayValue>{displayValue}</DisplayValue>
-				<div>{displayString}</div>
+				<div>Glatt Logo</div>
+				<div>
+					<DisplayValue>{displayValue}</DisplayValue>
+					<div>{displayString}</div>
+				</div>
+				<div>&nbsp;</div>
 			</DisplayScreen>
 		</ThemeProvider>
 	);
