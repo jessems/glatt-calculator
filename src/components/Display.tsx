@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider, useTheme } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 const getBackgroundColor = (displayValue?: string): any => {
 	let theme = {

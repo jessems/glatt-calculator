@@ -1,4 +1,3 @@
-import { isStringLiteral } from 'typescript';
 
 export type CalcInput = Number;
 
