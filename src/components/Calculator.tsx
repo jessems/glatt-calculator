@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Display from './Display';
 import Calc from '../modules/calc';
-import { stringify } from 'querystring';
 
 const Container = styled.div`
 	background: #323232;

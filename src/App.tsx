@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import './App.css';
 import Calculator from './components/Calculator';
-import Calc from './modules/calc';
 
 const Container = styled.div`
 	background: #323232;
