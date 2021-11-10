@@ -42,23 +42,104 @@ const DisplayValue = styled.div`
 	font-size: 42px;
 	display: flex;
 	justify-content: center;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: 800;
+`;
+
+const DisplayString = styled.div`
+	font-size: 24px;
+	font-style: italic;
+	display: flex;
+	justify-content: center;
 `;
 
 type Props = {
 	displayValue?: string;
 	displayString?: string;
+	oelValue?: Number;
+	displayOtherNomenclatures?: string;
 };
 
-const Display: React.FC<Props> = ({ displayValue, displayString }) => {
+const Display: React.FC<Props> = ({
+	oelValue,
+	displayValue,
+	displayString,
+	displayOtherNomenclatures
+}) => {
 	return (
 		<ThemeProvider theme={getBackgroundColor(displayValue)}>
 			<DisplayScreen>
-				<div>Glatt Logo</div>
+				<div></div>
 				<div>
-					<DisplayValue>{displayValue}</DisplayValue>
-					<div>{displayString}</div>
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							padding: '16px'
+						}}
+					>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center'
+							}}
+						>
+							<div
+								style={{
+									display: 'block',
+									textTransform: 'uppercase',
+									padding: '8px',
+									fontSize: '12px'
+								}}
+							>
+								OEL Value
+							</div>
+							<div style={{ display: 'block' }}>{oelValue}</div>
+						</div>
+					</div>
+					<div style={{ padding: '16px' }}>
+						<DisplayValue>{displayValue}</DisplayValue>
+						<DisplayString>{displayString}</DisplayString>
+					</div>
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							padding: '16px'
+						}}
+					>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center'
+							}}
+						>
+							<div
+								style={{
+									display: 'block',
+									textTransform: 'uppercase',
+									fontSize: '12px',
+									padding: '8px'
+								}}
+							>
+								Other Nomenclatures
+							</div>
+							<div
+								style={{
+									display: 'block',
+									fontWeight: 800,
+									fontFamily:
+										"'Courier New', Courier, monospace"
+								}}
+							>
+								{displayOtherNomenclatures}
+							</div>
+						</div>
+					</div>
 				</div>
-				<div>&nbsp;</div>
+				<div></div>
 			</DisplayScreen>
 		</ThemeProvider>
 	);

@@ -23,8 +23,10 @@ const InputArea = styled.div`
 
 const Calculator: React.FC<{}> = () => {
 	interface DisplayValues {
+		oelValue: Number;
 		displayValue: string;
 		displayString: string;
+		displayOtherNomenclatures: string;
 	}
 
 	const [inputValue, setInputValue] = useState<DisplayValues | null>(null);
@@ -35,6 +37,10 @@ const Calculator: React.FC<{}> = () => {
 				<Display
 					displayValue={inputValue?.displayValue}
 					displayString={inputValue?.displayString}
+					oelValue={inputValue?.oelValue}
+					displayOtherNomenclatures={
+						inputValue?.displayOtherNomenclatures
+					}
 				/>
 				<InputArea>
 					<form>
