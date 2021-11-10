@@ -3,27 +3,34 @@ import styled, { ThemeProvider } from 'styled-components';
 
 const getBackgroundColor = (displayValue?: string): any => {
 	let theme = {
-		backgroundColor: 'grey'
+		backgroundColor: '#C4C4C4',
+		textColor: '#575757'
 	};
 	if (displayValue === '4') {
-		theme.backgroundColor = 'red';
+		theme.backgroundColor = '#F29A9A';
+		theme.textColor = '#A11010';
 	} else if (displayValue === '3b') {
-		theme.backgroundColor = 'orange';
+		theme.backgroundColor = '#F2A685';
+		theme.textColor = '#AD4316';
 	} else if (displayValue === '3a') {
-		theme.backgroundColor = 'orange';
+		theme.backgroundColor = '#F2CD85';
+		theme.textColor = '#8D6008';
 	} else if (displayValue === '2') {
-		theme.backgroundColor = '#fed8b1';
+		theme.backgroundColor = '#E3E094';
+		theme.textColor = '#69660F';
 	} else if (displayValue === '1') {
-		theme.backgroundColor = 'green';
+		theme.backgroundColor = '#B8E0BC';
+		theme.textColor = '#3A653E';
 	} else {
-		theme.backgroundColor = 'grey';
+		theme.backgroundColor = '#C4C4C4';
+		theme.textColor = '#575757';
 	}
 	return theme;
 };
 
 const DisplayScreen = styled.div`
 	background: ${props => props.theme.backgroundColor};
-	color: white;
+	color: ${props => props.theme.textColor};
 	min-height: 300px;
 	display: flex;
 	flex-direction: column;
