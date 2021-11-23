@@ -35,11 +35,11 @@ const DisplayScreen = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 `;
 
 const DisplayValue = styled.div`
-	font-size: 42px;
+	font-size: 52px;
 	display: flex;
 	justify-content: center;
 	font-family: 'Courier New', Courier, monospace;
@@ -56,12 +56,14 @@ const DisplayString = styled.div`
 type Props = {
 	displayValue?: string;
 	displayString?: string;
-	oelValue?: Number;
+	oelValue?: number;
 	displayOtherNomenclatures?: string;
+	sliderValue?: number;
 };
 
 const Display: React.FC<Props> = ({
 	oelValue,
+	sliderValue,
 	displayValue,
 	displayString,
 	displayOtherNomenclatures
@@ -69,77 +71,89 @@ const Display: React.FC<Props> = ({
 	return (
 		<ThemeProvider theme={getBackgroundColor(displayValue)}>
 			<DisplayScreen>
-				<div></div>
-				<div>
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'center',
-							padding: '16px'
-						}}
-					>
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center'
-							}}
-						>
+				<div
+					style={{
+						height: '67vh',
+						display: 'flex',
+						alignItems: 'center'
+					}}
+				>
+					<div style={{ marginTop: '-20px' }}>
+						<div></div>
+						<div>
 							<div
 								style={{
-									display: 'block',
-									textTransform: 'uppercase',
-									padding: '8px',
-									fontSize: '12px'
+									display: 'flex',
+									justifyContent: 'center',
+									padding: '32px'
 								}}
 							>
-								OEL Value
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'center'
+									}}
+								>
+									<div
+										style={{
+											display: 'block',
+											textTransform: 'uppercase',
+											padding: '8px',
+											fontSize: '12px'
+										}}
+									>
+										OEL Value
+									</div>
+									<div style={{ display: 'block' }}>
+										{oelValue}
+									</div>
+								</div>
 							</div>
-							<div style={{ display: 'block' }}>{oelValue}</div>
+							<div style={{ padding: '16px' }}>
+								<DisplayValue>{displayValue}</DisplayValue>
+								<DisplayString>{displayString}</DisplayString>
+							</div>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									padding: '32px'
+								}}
+							>
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'center'
+									}}
+								>
+									<div
+										style={{
+											display: 'block',
+											textTransform: 'uppercase',
+											fontSize: '12px',
+											padding: '8px'
+										}}
+									>
+										Other Nomenclatures
+									</div>
+									<div
+										style={{
+											display: 'block',
+											fontWeight: 800,
+											fontFamily:
+												"'Courier New', Courier, monospace"
+										}}
+									>
+										{displayOtherNomenclatures}
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div style={{ padding: '16px' }}>
-						<DisplayValue>{displayValue}</DisplayValue>
-						<DisplayString>{displayString}</DisplayString>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'center',
-							padding: '16px'
-						}}
-					>
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center'
-							}}
-						>
-							<div
-								style={{
-									display: 'block',
-									textTransform: 'uppercase',
-									fontSize: '12px',
-									padding: '8px'
-								}}
-							>
-								Other Nomenclatures
-							</div>
-							<div
-								style={{
-									display: 'block',
-									fontWeight: 800,
-									fontFamily:
-										"'Courier New', Courier, monospace"
-								}}
-							>
-								{displayOtherNomenclatures}
-							</div>
-						</div>
+						<div></div>
 					</div>
 				</div>
-				<div></div>
 			</DisplayScreen>
 		</ThemeProvider>
 	);
