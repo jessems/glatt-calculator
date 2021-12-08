@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Display from './Display';
 import Calc from '../modules/calc';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import { FormHelperText, InputLabel, MenuItem } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Slider from '@mui/material/Slider';
+import { Box } from '@mui/system';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import type {} from '@mui/lab/themeAugmentation';
 
 const Container = styled.div`
 	background: #323232;
@@ -9,9 +17,6 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	border: 1px;
-	border-color: red;
-	border-style: solid;
 	width: 100vw;
 	max-height: 100vh;
 	height: 100vh;
@@ -56,6 +61,18 @@ const InputArea = styled.div`
 	}
 `;
 
+const theme = createTheme({
+	palette: {
+		mode: 'dark',
+		primary: {
+			main: '#3f51b5'
+		},
+		secondary: {
+			main: '#f50057'
+		}
+	}
+});
+
 const StyledNumberInput = styled.input`
 	width: '30px';
 `;
@@ -81,89 +98,111 @@ const Calculator: React.FC<{}> = () => {
 		multiplicationFactor: 1
 	};
 
+	const handleSliderChange = (event: Event, newValue: number | number[]) => {
+		setInputValue(
+			Calc.getStateFromSliderInput({
+				...inputValue,
+				sliderValue: newValue
+			})
+		);
+	};
+
 	const [inputValue, setInputValue] = useState<DisplayValues | null>(
 		defaultState
 	);
 
 	return (
-		<div>
-			<Container>
-				<Display
-					displayValue={inputValue?.displayValue}
-					displayString={inputValue?.displayString}
-					oelValue={inputValue?.oelValue}
-					sliderValue={inputValue?.sliderValue}
-					displayOtherNomenclatures={
-						inputValue?.displayOtherNomenclatures
-					}
-				/>
-				<InputArea>
-					<form>
-						<label style={{ color: 'white' }}>
-							<div>OEL value of the API</div>
-							<input
-								style={{ width: '30px' }}
-								value={inputValue?.oelValue}
-								onChange={event =>
-									setInputValue(
-										Calc.getStateFromNumberInput({
-											...inputValue,
-											numberInputValue: parseFloat(
-												event.target.value
+		<ThemeProvider theme={theme}>
+			<div>
+				<Container>
+					<Display
+						displayValue={inputValue?.displayValue}
+						displayString={inputValue?.displayString}
+						oelValue={inputValue?.oelValue}
+						sliderValue={inputValue?.sliderValue}
+						displayOtherNomenclatures={
+							inputValue?.displayOtherNomenclatures
+						}
+					/>
+					<InputArea>
+						<form>
+							<Box>
+								<InputLabel id="demo-simple-select-helper-label">
+									OEL value of the API
+								</InputLabel>
+								<OutlinedInput
+									id="outlined-adornment-weight"
+									value={inputValue?.oelValue}
+									onChange={event =>
+										setInputValue(
+											Calc.getStateFromNumberInput({
+												...inputValue,
+												numberInputValue: parseFloat(
+													event.target.value
+												)
+											})
+										)
+									}
+									color="primary"
+									endAdornment={
+										<InputAdornment position="end">
+											&mu;g/m<sup>3</sup>
+										</InputAdornment>
+									}
+									aria-describedby="outlined-weight-helper-text"
+									inputProps={{
+										'aria-label': 'weight'
+									}}
+								/>
+								<div>
+									<InputLabel id="demo-simple-select-helper-label">
+										Range
+									</InputLabel>
+									<Select
+										labelId="demo-simple-select-helper-label"
+										id="demo-simple-select-helper"
+										value={inputValue?.multiplicationFactor}
+										label="Range"
+										onChange={event =>
+											setInputValue(
+												Calc.getStateFromSelectInput({
+													...inputValue,
+													multiplicationFactor:
+														event.target.value
+												})
 											)
-										})
-									)
-								}
-							></input>{' '}
-							&mu;g/m<sup>3</sup>
-						</label>
-						<div>
-							<select
-								name="multiplicationFactor"
-								value={inputValue?.multiplicationFactor}
-								defaultValue="10"
-								onChange={event =>
-									setInputValue(
-										Calc.getStateFromSelectInput({
-											...inputValue,
-											multiplicationFactor: parseFloat(
-												event.target.value
-											)
-										})
-									)
-								}
-							>
-								<option value="1">0.1 - 1.0</option>
-								<option value="10">1 - 10</option>
-								<option value="100">1 - 100</option>
-								<option value="1000">1 - 1000</option>
-								<option value="5000">1 - 5000</option>
-							</select>
-						</div>
-						<div style={{ width: '100%' }}>
-							<input
-								type="range"
-								min="0"
-								max="100"
-								id="myRange"
-								className="slider"
-								value={inputValue?.sliderValue}
-								onChange={event =>
-									setInputValue(
-										Calc.getStateFromSliderInput({
-											...inputValue,
-											sliderValue: parseFloat(
-												event.target.value
-											)
-										})
-									)
-								}
-							/>
-						</div>
-					</form>
-				</InputArea>
-			</Container>
-		</div>
+										}
+									>
+										<MenuItem value="">
+											<em>None</em>
+										</MenuItem>
+										<MenuItem value={1}>0.1 - 1.0</MenuItem>
+										<MenuItem value={10}>1 - 10</MenuItem>
+										<MenuItem value={100}>1 - 100</MenuItem>
+										<MenuItem value={1000}>
+											1 - 1000
+										</MenuItem>
+										<MenuItem value={5000}>
+											1 - 5000
+										</MenuItem>
+									</Select>
+									<FormHelperText>
+										With label + helper text
+									</FormHelperText>
+								</div>
+								<div style={{ width: '100%' }}>
+									<Slider
+										value={inputValue?.sliderValue}
+										onChange={handleSliderChange}
+										aria-labelledby="input-slider"
+									/>
+								</div>
+							</Box>
+						</form>
+					</InputArea>
+				</Container>
+			</div>
+		</ThemeProvider>
 	);
 };
 
