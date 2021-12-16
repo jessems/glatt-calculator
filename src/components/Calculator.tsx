@@ -12,7 +12,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import type {} from '@mui/lab/themeAugmentation';
 
 const Container = styled.div`
-	background: #323232;
+	background: #121212;
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -25,10 +25,10 @@ const Container = styled.div`
 const InputArea = styled.div`
 	display: flex;
 	justify-content: center;
-	background: #454545;
+	background: rgb(0, 30, 60);
+	padding: 32px;
 	border-radius: 20px 20px 0 0;
 	margin-top: -20px;
-	height: 40vh;
 
 	.slider {
 		-webkit-appearance: auto;
@@ -59,22 +59,38 @@ const InputArea = styled.div`
 		background: #04aa6d;
 		cursor: pointer;
 	}
+
+	#oel-value-label,
+	#range-label {
+		margin-top: 16px;
+	}
+
+	#input-slider {
+		margin-top: 16px;
+	}
 `;
 
 const theme = createTheme({
 	palette: {
 		mode: 'dark',
 		primary: {
-			main: '#3f51b5'
-		},
-		secondary: {
-			main: '#f50057'
+			main: '#ffffff'
 		}
 	}
 });
 
 const StyledNumberInput = styled.input`
 	width: '30px';
+`;
+
+const FormTitle = styled.div`
+	color: hsl(240, 26%, 60%);
+	text-transform: uppercase;
+	font-weight: 400;
+	font-size: 13px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 48px;
 `;
 
 const RadioCard = styled.div;
@@ -127,7 +143,8 @@ const Calculator: React.FC<{}> = () => {
 					<InputArea>
 						<form>
 							<Box>
-								<InputLabel id="demo-simple-select-helper-label">
+								<FormTitle>Enter a value below</FormTitle>
+								<InputLabel id="oel-value-label">
 									OEL value of the API
 								</InputLabel>
 								<OutlinedInput
@@ -137,9 +154,8 @@ const Calculator: React.FC<{}> = () => {
 										setInputValue(
 											Calc.getStateFromNumberInput({
 												...inputValue,
-												numberInputValue: parseFloat(
+												numberInputValue:
 													event.target.value
-												)
 											})
 										)
 									}
@@ -155,11 +171,11 @@ const Calculator: React.FC<{}> = () => {
 									}}
 								/>
 								<div>
-									<InputLabel id="demo-simple-select-helper-label">
+									<InputLabel id="range-label">
 										Range
 									</InputLabel>
 									<Select
-										labelId="demo-simple-select-helper-label"
+										labelId="range-label"
 										id="demo-simple-select-helper"
 										value={inputValue?.multiplicationFactor}
 										label="Range"
@@ -186,12 +202,10 @@ const Calculator: React.FC<{}> = () => {
 											1 - 5000
 										</MenuItem>
 									</Select>
-									<FormHelperText>
-										With label + helper text
-									</FormHelperText>
 								</div>
 								<div style={{ width: '100%' }}>
 									<Slider
+										id="input-slider"
 										value={inputValue?.sliderValue}
 										onChange={handleSliderChange}
 										aria-labelledby="input-slider"

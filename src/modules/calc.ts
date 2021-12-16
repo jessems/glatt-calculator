@@ -1,10 +1,6 @@
-export type DangerRating = string;
-
-export type DangerString = string;
-
 export type CalcState = {
-	displayValue: DangerRating;
-	displayString: DangerString;
+	displayValue: string;
+	displayString: string;
 	displayOtherNomenclatures: string;
 	sliderValue: number; // [0 - 100]
 	numberInputValue: number; // [0.01 - 5000]
@@ -13,22 +9,18 @@ export type CalcState = {
 };
 
 const getStateFromSelectInput = (currentState: any) : CalcState => {
-	console.log(currentState);
 	currentState.oelValue = currentState.sliderValue * currentState.multiplicationFactor * 1/100;
 	currentState.numberInputValue = currentState.oelValue;
-	console.log(currentState);
 	return getStateDisplayValues(currentState);
 }
 
 const getStateFromSliderInput = (currentState: any): CalcState => {
-	console.log(currentState);
 	currentState.oelValue = currentState.sliderValue * currentState.multiplicationFactor * 1/100;
 	currentState.numberInputValue = currentState.oelValue;
 	return getStateDisplayValues(currentState);
 };
 
 const getStateFromNumberInput = (currentState: any): CalcState => {
-	console.log(currentState);
 	currentState.sliderValue = currentState.numberInputValue / currentState.multiplicationFactor;
 	currentState.oelValue = currentState.numberInputValue ? currentState.numberInputValue : 0;
 	return getStateDisplayValues(currentState);
