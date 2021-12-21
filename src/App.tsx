@@ -4,12 +4,12 @@ import './App.css';
 import Calculator from './components/Calculator';
 
 const Container = styled.div`
-	background: #323232;
+	background: #fff;
 	align-items: center;
 	justify-content: center;
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+	height: 100vh;
 `;
 
 function App() {

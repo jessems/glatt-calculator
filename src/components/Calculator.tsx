@@ -1,34 +1,61 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Display from './Display';
+import DisplaySection from './Display';
 import Calc from '../modules/calc';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import { FormHelperText, InputLabel, MenuItem } from '@mui/material';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { InputLabel, MenuItem } from '@mui/material';
+import Select from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
 import { Box } from '@mui/system';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import type {} from '@mui/lab/themeAugmentation';
+import { device } from '../device';
+import { getTheme } from '../utils';
 
-const Container = styled.div`
-	background: #121212;
-	flex: 1;
+// const Container = styled.div`
+// 	background: #fff;
+// 	flex: 1;
+// 	display: flex;
+// 	flex-direction: column;
+// 	justify-content: center;
+// 	align-items: center;
+// 	width: 100vw;
+// 	max-height: 100vh;
+// 	height: 100vh;
+// `;
+
+const InputSection = styled.div`
 	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 100vw;
-	max-height: 100vh;
-	height: 100vh;
+	height: 33vh;
+	width: 100%;
+	justify-content: center;
+	background-color: ${props => props.theme.backgroundColor};
+	color: ${props => props.theme.textColor};
+	@media ${device.tablet} {
+		padding-bottom: 10vh;
+	}
 `;
 
-const InputArea = styled.div`
+const InputPanel = styled.div`
 	display: flex;
 	justify-content: center;
 	background: rgb(0, 30, 60);
 	padding: 32px;
 	border-radius: 20px 20px 0 0;
 	margin-top: -20px;
+	width: 100%;
+	box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+		6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+		12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+		22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+		41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+		100px 100px 80px rgba(0, 0, 0, 0.07);
+
+	@media ${device.tablet} {
+		border-radius: 20px 20px 20px 20px;
+		width: auto;
+	}
 
 	.slider {
 		-webkit-appearance: auto;
@@ -79,9 +106,9 @@ const theme = createTheme({
 	}
 });
 
-const StyledNumberInput = styled.input`
-	width: '30px';
-`;
+// const StyledNumberInput = styled.input`
+// 	width: '30px';
+// `;
 
 const FormTitle = styled.div`
 	color: hsl(240, 26%, 60%);
@@ -92,8 +119,6 @@ const FormTitle = styled.div`
 	justify-content: center;
 	margin-bottom: 48px;
 `;
-
-const RadioCard = styled.div;
 
 const Calculator: React.FC<{}> = () => {
 	interface DisplayValues {
@@ -129,93 +154,83 @@ const Calculator: React.FC<{}> = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div>
-				<Container>
-					<Display
-						displayValue={inputValue?.displayValue}
-						displayString={inputValue?.displayString}
-						oelValue={inputValue?.oelValue}
-						sliderValue={inputValue?.sliderValue}
-						displayOtherNomenclatures={
-							inputValue?.displayOtherNomenclatures
-						}
-					/>
-					<InputArea>
-						<form>
-							<Box>
-								<FormTitle>Enter a value below</FormTitle>
-								<InputLabel id="oel-value-label">
-									OEL value of the API
-								</InputLabel>
-								<OutlinedInput
-									id="outlined-adornment-weight"
-									value={inputValue?.oelValue}
+			<DisplaySection
+				displayValue={inputValue?.displayValue}
+				displayString={inputValue?.displayString}
+				oelValue={inputValue?.oelValue}
+				sliderValue={inputValue?.sliderValue}
+				displayOtherNomenclatures={
+					inputValue?.displayOtherNomenclatures
+				}
+				theme={getTheme(inputValue?.displayValue)}
+			/>
+			<InputSection theme={getTheme(inputValue?.displayValue)}>
+				<InputPanel>
+					<form>
+						<Box>
+							<FormTitle>Enter a value below</FormTitle>
+							<InputLabel id="oel-value-label">
+								OEL value of the API
+							</InputLabel>
+							<OutlinedInput
+								id="outlined-adornment-weight"
+								value={inputValue?.oelValue}
+								onChange={event =>
+									setInputValue(
+										Calc.getStateFromNumberInput({
+											...inputValue,
+											numberInputValue: event.target.value
+										})
+									)
+								}
+								color="primary"
+								endAdornment={
+									<InputAdornment position="end">
+										&mu;g/m<sup>3</sup>
+									</InputAdornment>
+								}
+								aria-describedby="outlined-weight-helper-text"
+								inputProps={{
+									'aria-label': 'weight'
+								}}
+							/>
+							<div>
+								<InputLabel id="range-label">Range</InputLabel>
+								<Select
+									labelId="range-label"
+									id="demo-simple-select-helper"
+									value={inputValue?.multiplicationFactor}
+									label="Range"
 									onChange={event =>
 										setInputValue(
-											Calc.getStateFromNumberInput({
+											Calc.getStateFromSelectInput({
 												...inputValue,
-												numberInputValue:
+												multiplicationFactor:
 													event.target.value
 											})
 										)
 									}
-									color="primary"
-									endAdornment={
-										<InputAdornment position="end">
-											&mu;g/m<sup>3</sup>
-										</InputAdornment>
-									}
-									aria-describedby="outlined-weight-helper-text"
-									inputProps={{
-										'aria-label': 'weight'
-									}}
+								>
+									<MenuItem value={0.1}>0.0 - 0.1</MenuItem>
+									<MenuItem value={1}>0.0 - 1.0</MenuItem>
+									<MenuItem value={10}>0.0 - 10</MenuItem>
+									<MenuItem value={100}>0.0 - 100</MenuItem>
+									<MenuItem value={1000}>0 - 1000</MenuItem>
+									<MenuItem value={5000}>0 - 5000</MenuItem>
+								</Select>
+							</div>
+							<div style={{ width: '100%' }}>
+								<Slider
+									id="input-slider"
+									value={inputValue?.sliderValue}
+									onChange={handleSliderChange}
+									aria-labelledby="input-slider"
 								/>
-								<div>
-									<InputLabel id="range-label">
-										Range
-									</InputLabel>
-									<Select
-										labelId="range-label"
-										id="demo-simple-select-helper"
-										value={inputValue?.multiplicationFactor}
-										label="Range"
-										onChange={event =>
-											setInputValue(
-												Calc.getStateFromSelectInput({
-													...inputValue,
-													multiplicationFactor:
-														event.target.value
-												})
-											)
-										}
-									>
-										<MenuItem value="">
-											<em>None</em>
-										</MenuItem>
-										<MenuItem value={1}>0.1 - 1.0</MenuItem>
-										<MenuItem value={10}>1 - 10</MenuItem>
-										<MenuItem value={100}>1 - 100</MenuItem>
-										<MenuItem value={1000}>
-											1 - 1000
-										</MenuItem>
-										<MenuItem value={5000}>
-											1 - 5000
-										</MenuItem>
-									</Select>
-								</div>
-								<div style={{ width: '100%' }}>
-									<Slider
-										id="input-slider"
-										value={inputValue?.sliderValue}
-										onChange={handleSliderChange}
-										aria-labelledby="input-slider"
-									/>
-								</div>
-							</Box>
-						</form>
-					</InputArea>
-				</Container>
-			</div>
+							</div>
+						</Box>
+					</form>
+				</InputPanel>
+			</InputSection>
 		</ThemeProvider>
 	);
 };

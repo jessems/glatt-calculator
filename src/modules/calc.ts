@@ -28,7 +28,17 @@ const getStateFromNumberInput = (currentState: any): CalcState => {
 }
 
 const getStateDisplayValues = (calcState: any): CalcState => {
-	if (calcState.numberInputValue < 1) {
+	if (calcState.numberInputValue < 0.1) {
+		calcState.displayValue = '5';
+		calcState.displayString = 'Extremely hazardous';
+		calcState.displayOtherNomenclatures = '6';
+
+		// If the range is set to the smallest range, expand the decimal places
+		if (calcState.multiplicationFactor === 0.1) {
+			calcState.oelValue = calcState.oelValue.toFixed(4);
+		}
+	}
+	else if (calcState.numberInputValue < 1) {
 		calcState.displayValue = '4';
 		calcState.displayString = 'Very highly hazardous';
 		calcState.displayOtherNomenclatures = '5';
