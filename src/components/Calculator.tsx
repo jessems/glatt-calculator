@@ -13,18 +13,6 @@ import type {} from '@mui/lab/themeAugmentation';
 import { device } from '../device';
 import { getTheme } from '../utils';
 
-// const Container = styled.div`
-// 	background: #fff;
-// 	flex: 1;
-// 	display: flex;
-// 	flex-direction: column;
-// 	justify-content: center;
-// 	align-items: center;
-// 	width: 100vw;
-// 	max-height: 100vh;
-// 	height: 100vh;
-// `;
-
 const InputSection = styled.div`
 	display: flex;
 	height: 33vh;
@@ -106,10 +94,6 @@ const theme = createTheme({
 	}
 });
 
-// const StyledNumberInput = styled.input`
-// 	width: '30px';
-// `;
-
 const FormTitle = styled.div`
 	color: hsl(240, 26%, 60%);
 	text-transform: uppercase;
@@ -131,10 +115,10 @@ const Calculator: React.FC<{}> = () => {
 	}
 
 	const defaultState: DisplayValues = {
-		oelValue: 1,
-		displayValue: 'test',
-		displayString: 'test',
-		displayOtherNomenclatures: 'test',
+		oelValue: 0,
+		displayValue: 'n/a',
+		displayString: 'Enter a value below',
+		displayOtherNomenclatures: 'n/a',
 		sliderValue: 1,
 		multiplicationFactor: 1
 	};

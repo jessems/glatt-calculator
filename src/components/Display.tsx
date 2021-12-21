@@ -63,9 +63,6 @@ const DisplaySection: React.FC<Props> = ({
 				<div
 					id="display-container"
 					style={{
-						border: 'solid',
-						borderColor: 'red',
-						borderWidth: '1px',
 						height: '67vh',
 						display: 'flex',
 						alignItems: 'center'

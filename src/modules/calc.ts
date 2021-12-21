@@ -61,7 +61,7 @@ const getStateDisplayValues = (calcState: any): CalcState => {
 	} else if (calcState.numberInputValue > 5000 || calcState.numberInputValue < 0) {
 		calcState.displayValue = 'n/a';
 		calcState.displayString = 'Out of range';
-		calcState.displayOtherNomenclatures = '';
+		calcState.displayOtherNomenclatures = 'n/a';
 	} else {
 		calcState.displayValue = ''
 		calcState.displayString = ''
