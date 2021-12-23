@@ -15,6 +15,12 @@ const DisplayScreen = styled.div`
 	justify-content: center;
 `;
 
+const DisplayContainer = styled.div`
+	height: '67vh';
+	display: 'flex';
+	align-items: 'center';
+`;
+
 const DisplayValue = styled.div`
 	font-size: 52px;
 	display: flex;
@@ -31,6 +37,52 @@ const DisplayString = styled.div`
 	text-align: center;
 `;
 
+const PrimaryDisplayBlock: React.FC<any> = ({
+	displayValue,
+	displayString
+}) => {
+	return (
+		<div style={{ padding: '16px' }}>
+			<DisplayValue>{displayValue}</DisplayValue>
+			<DisplayString>{displayString}</DisplayString>
+		</div>
+	);
+};
+
+const SecondaryDisplayBlock: React.FC<SecondaryDisplayBlockProps> = ({
+	type,
+	value
+}) => {
+	return (
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				padding: '32px'
+			}}
+		>
+			<div
+				style={{
+					display: 'block',
+					textTransform: 'uppercase',
+					padding: '8px',
+					fontSize: '12px'
+				}}
+			>
+				{type === 'oelValue' ? `OEL Value` : `Other Nomenclatures`}
+			</div>
+			<div style={{ display: 'block' }}>
+				{type === 'oelValue' ? (
+					<OelValueDisplay value={value} />
+				) : (
+					<NomenclatureDisplay value={value} />
+				)}
+			</div>
+		</div>
+	);
+};
+
 type Theme = {
 	backgroundColor: string;
 	textColor: string;
@@ -45,20 +97,38 @@ type Props = {
 	theme: Theme;
 };
 
-type OelProps = {
-	oelValue: string | undefined;
+type SecondaryDisplayBlockProps = {
+	type: 'oelValue' | 'displayOtherNomenclatures';
+	value: string | undefined;
 };
 
-const OelValueDisplay: React.FC<OelProps> = ({ oelValue }) => {
-	if (oelValue) {
+type SecondaryBlockProps = {
+	value: string | undefined;
+};
+
+const OelValueDisplay: React.FC<SecondaryBlockProps> = ({ value }) => {
+	if (value) {
 		return (
 			<span>
-				{oelValue} &mu;g/m<sup>3</sup>
+				{value} &mu;g/m<sup>3</sup>
 			</span>
 		);
 	} else {
 		return <span>n/a</span>;
 	}
+};
+
+const NomenclatureDisplay: React.FC<SecondaryBlockProps> = ({ value }) => {
+	return (
+		<span
+			style={{
+				fontWeight: 800,
+				fontFamily: "'Courier New', Courier, monospace"
+			}}
+		>
+			{value}
+		</span>
+	);
 };
 
 const DisplaySection: React.FC<Props> = ({
@@ -72,92 +142,22 @@ const DisplaySection: React.FC<Props> = ({
 	return (
 		<ThemeProvider theme={getTheme(displayValue)}>
 			<DisplayScreen>
-				<div
-					id="display-container"
-					style={{
-						height: '67vh',
-						display: 'flex',
-						alignItems: 'center'
-					}}
-				>
-					{' '}
-					<div>
-						<div>
-							<div
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									padding: '32px'
-								}}
-							>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'column',
-										alignItems: 'center'
-									}}
-								>
-									<div
-										style={{
-											display: 'block',
-											textTransform: 'uppercase',
-											padding: '8px',
-											fontSize: '12px'
-										}}
-									>
-										OEL Value
-									</div>
-									<div style={{ display: 'block' }}>
-										<OelValueDisplay oelValue={oelValue} />
-									</div>
-								</div>
-							</div>
-							<div style={{ padding: '16px' }}>
-								<DisplayValue>{displayValue}</DisplayValue>
-								<DisplayString>{displayString}</DisplayString>
-							</div>
-							<div
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									padding: '32px'
-								}}
-							>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'column',
-										alignItems: 'center'
-									}}
-								>
-									<div
-										style={{
-											display: 'block',
-											textTransform: 'uppercase',
-											fontSize: '12px',
-											padding: '8px',
-											textAlign: 'center'
-										}}
-									>
-										Other Nomenclatures
-									</div>
-									<div
-										style={{
-											textAlign: 'center',
-											display: 'block',
-											fontWeight: 800,
-											fontFamily:
-												"'Courier New', Courier, monospace"
-										}}
-									>
-										{displayOtherNomenclatures}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div></div>
+				<DisplayContainer>
+					<div id="inner-container">
+						<SecondaryDisplayBlock
+							type="oelValue"
+							value={oelValue}
+						/>
+						<PrimaryDisplayBlock
+							displayValue={displayValue}
+							displayString={displayString}
+						/>
+						<SecondaryDisplayBlock
+							type="displayOtherNomenclatures"
+							value={displayOtherNomenclatures}
+						/>
 					</div>
-				</div>
+				</DisplayContainer>
 			</DisplayScreen>
 		</ThemeProvider>
 	);
