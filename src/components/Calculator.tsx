@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DisplaySection from './Display';
-import Calc from '../modules/calc';
+import Calc, { CalcState } from '../modules/calc';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import { InputLabel, MenuItem } from '@mui/material';
@@ -105,18 +105,10 @@ const FormTitle = styled.div`
 `;
 
 const Calculator: React.FC<{}> = () => {
-	interface DisplayValues {
-		oelValue: number;
-		displayValue: string;
-		displayString: string;
-		displayOtherNomenclatures: string;
-		sliderValue: number;
-		multiplicationFactor: number;
-	}
-
-	const defaultState: DisplayValues = {
-		oelValue: 0,
-		displayValue: 'n/a',
+	const defaultState: CalcState = {
+		oelValue: '',
+		numberInputValue: '0',
+		displayValue: '-',
 		displayString: 'Enter a value below',
 		displayOtherNomenclatures: 'n/a',
 		sliderValue: 1,
@@ -128,11 +120,11 @@ const Calculator: React.FC<{}> = () => {
 			Calc.getStateFromSliderInput({
 				...inputValue,
 				sliderValue: newValue
-			})
+			} as CalcState)
 		);
 	};
 
-	const [inputValue, setInputValue] = useState<DisplayValues | null>(
+	const [inputValue, setInputValue] = useState<CalcState | null>(
 		defaultState
 	);
 
@@ -164,7 +156,7 @@ const Calculator: React.FC<{}> = () => {
 										Calc.getStateFromNumberInput({
 											...inputValue,
 											numberInputValue: event.target.value
-										})
+										} as CalcState)
 									)
 								}
 								color="primary"
@@ -191,7 +183,7 @@ const Calculator: React.FC<{}> = () => {
 												...inputValue,
 												multiplicationFactor:
 													event.target.value
-											})
+											} as CalcState)
 										)
 									}
 								>

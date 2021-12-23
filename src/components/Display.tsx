@@ -6,7 +6,7 @@ import { getTheme } from '../utils';
 const DisplayScreen = styled.div`
 	background: ${props => props.theme.backgroundColor};
 	color: ${props => props.theme.textColor};
-	/* min-height: 300px; */
+	background-size: 45px 45px, 45px 45px, 22.5px 22.5px, 22.5px 22.5px;
 	height: '67vh';
 	width: 100vw;
 	display: flex;
@@ -14,10 +14,6 @@ const DisplayScreen = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
-
-// const BottomSection = styled.div`
-// 	background: ${props => props.theme.backgroundColor};
-// `;
 
 const DisplayValue = styled.div`
 	font-size: 52px;
@@ -43,10 +39,26 @@ type Theme = {
 type Props = {
 	displayValue?: string;
 	displayString?: string;
-	oelValue?: number;
+	oelValue?: string;
 	displayOtherNomenclatures?: string;
 	sliderValue?: number;
 	theme: Theme;
+};
+
+type OelProps = {
+	oelValue: string | undefined;
+};
+
+const OelValueDisplay: React.FC<OelProps> = ({ oelValue }) => {
+	if (oelValue) {
+		return (
+			<span>
+				{oelValue} &mu;g/m<sup>3</sup>
+			</span>
+		);
+	} else {
+		return <span>n/a</span>;
+	}
 };
 
 const DisplaySection: React.FC<Props> = ({
@@ -96,7 +108,7 @@ const DisplaySection: React.FC<Props> = ({
 										OEL Value
 									</div>
 									<div style={{ display: 'block' }}>
-										{oelValue} &mu;g/m<sup>3</sup>
+										<OelValueDisplay oelValue={oelValue} />
 									</div>
 								</div>
 							</div>
