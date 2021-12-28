@@ -1,13 +1,11 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { SymbolDisplayPartKind } from 'typescript';
 import { getTheme } from '../utils';
 
-const DisplayScreen = styled.div`
+const DisplayCanvas = styled.div`
 	background: ${props => props.theme.backgroundColor};
 	color: ${props => props.theme.textColor};
-	background-size: 45px 45px, 45px 45px, 22.5px 22.5px, 22.5px 22.5px;
-	height: '67vh';
+	height: 100vh;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
@@ -16,7 +14,6 @@ const DisplayScreen = styled.div`
 `;
 
 const DisplayContainer = styled.div`
-	height: '67vh';
 	display: 'flex';
 	align-items: 'center';
 `;
@@ -133,32 +130,25 @@ const NomenclatureDisplay: React.FC<SecondaryBlockProps> = ({ value }) => {
 
 const DisplaySection: React.FC<Props> = ({
 	oelValue,
-	sliderValue,
 	displayValue,
 	displayString,
-	displayOtherNomenclatures,
-	theme
+	displayOtherNomenclatures
 }) => {
 	return (
 		<ThemeProvider theme={getTheme(displayValue)}>
-			<DisplayScreen>
+			<DisplayCanvas>
 				<DisplayContainer>
-					<div id="inner-container">
-						<SecondaryDisplayBlock
-							type="oelValue"
-							value={oelValue}
-						/>
-						<PrimaryDisplayBlock
-							displayValue={displayValue}
-							displayString={displayString}
-						/>
-						<SecondaryDisplayBlock
-							type="displayOtherNomenclatures"
-							value={displayOtherNomenclatures}
-						/>
-					</div>
+					<SecondaryDisplayBlock type="oelValue" value={oelValue} />
+					<PrimaryDisplayBlock
+						displayValue={displayValue}
+						displayString={displayString}
+					/>
+					<SecondaryDisplayBlock
+						type="displayOtherNomenclatures"
+						value={displayOtherNomenclatures}
+					/>
 				</DisplayContainer>
-			</DisplayScreen>
+			</DisplayCanvas>
 		</ThemeProvider>
 	);
 };

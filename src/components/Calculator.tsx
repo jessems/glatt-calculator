@@ -85,7 +85,7 @@ const InputPanel = styled.div`
 	}
 `;
 
-const theme = createTheme({
+const materialTheme = createTheme({
 	palette: {
 		mode: 'dark',
 		primary: {
@@ -129,7 +129,7 @@ const Calculator: React.FC<{}> = () => {
 	);
 
 	return (
-		<ThemeProvider theme={theme}>
+		<ThemeProvider theme={materialTheme}>
 			<DisplaySection
 				displayValue={inputValue?.displayValue}
 				displayString={inputValue?.displayString}
