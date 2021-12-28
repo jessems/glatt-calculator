@@ -151,6 +151,7 @@ const Calculator: React.FC<{}> = () => {
 							<OutlinedInput
 								id="outlined-adornment-weight"
 								value={inputValue?.oelValue}
+								role="material-input"
 								onChange={event =>
 									setInputValue(
 										Calc.getStateFromNumberInput({
@@ -177,6 +178,7 @@ const Calculator: React.FC<{}> = () => {
 									id="demo-simple-select-helper"
 									value={inputValue?.multiplicationFactor}
 									label="Range"
+									role="material-select"
 									onChange={event =>
 										setInputValue(
 											Calc.getStateFromSelectInput({
@@ -189,8 +191,8 @@ const Calculator: React.FC<{}> = () => {
 								>
 									<MenuItem value={0.1}>0.0 - 0.1</MenuItem>
 									<MenuItem value={1}>0.0 - 1.0</MenuItem>
-									<MenuItem value={10}>0.0 - 10</MenuItem>
-									<MenuItem value={100}>0.0 - 100</MenuItem>
+									<MenuItem value={10}>0 - 10</MenuItem>
+									<MenuItem value={100}>0 - 100</MenuItem>
 									<MenuItem value={1000}>0 - 1000</MenuItem>
 									<MenuItem value={5000}>0 - 5000</MenuItem>
 								</Select>
@@ -198,6 +200,7 @@ const Calculator: React.FC<{}> = () => {
 							<div style={{ width: '100%' }}>
 								<Slider
 									id="input-slider"
+									role="material-slider"
 									value={inputValue?.sliderValue}
 									onChange={handleSliderChange}
 									aria-labelledby="input-slider"

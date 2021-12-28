@@ -11,9 +11,16 @@ export type CalcState = {
 const re = new RegExp(/^([0-9]+\.?[0-9]*|\.[0-9]+)$/);
 
 const getStateFromSelectInput = (currentState: CalcState) : CalcState => {
-	currentState.oelValue = (currentState.sliderValue * currentState.multiplicationFactor * 1/100).toString();
-	currentState.numberInputValue = currentState.oelValue;
-	return getUpdatedDisplayValues(currentState);
+	// currentState.oelValue = (currentState.sliderValue * currentState.multiplicationFactor * 1/100).toString();
+	// currentState.numberInputValue = currentState.oelValue;
+
+	// If the numberInputValue exceeds the selected range, reset to the range's max value
+	if (parseFloat(currentState.numberInputValue) > currentState.multiplicationFactor) {
+		currentState.numberInputValue = currentState.multiplicationFactor.toString();
+		return getStateFromNumberInput(currentState)
+	}
+	
+	return currentState;
 }
 
 const getStateFromSliderInput = (currentState: CalcState): CalcState => {
@@ -25,9 +32,8 @@ const getStateFromSliderInput = (currentState: CalcState): CalcState => {
 const getStateFromNumberInput = (currentState: CalcState): CalcState => {
 	
 	if (re.test(currentState.numberInputValue.toString())) {
-		console.log('matches regex', currentState.numberInputValue);
 		currentState.oelValue = currentState.numberInputValue;
-		currentState.sliderValue = parseFloat(currentState.numberInputValue) / currentState.multiplicationFactor;
+		currentState.sliderValue = (parseFloat(currentState.numberInputValue) / currentState.multiplicationFactor) * 100;
 	} else if (currentState.numberInputValue.length === 0) {
 		currentState.oelValue = '';
 		currentState.sliderValue = 0;
@@ -40,7 +46,6 @@ const getStateFromNumberInput = (currentState: CalcState): CalcState => {
 		currentState.numberInputValue = currentState.oelValue;
 	}
 
-	console.log('new state:', JSON.stringify(currentState));
 	return getUpdatedDisplayValues(currentState);
 
 }
