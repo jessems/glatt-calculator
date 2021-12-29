@@ -156,7 +156,7 @@ const DisplaySection: React.FC<Props> = ({
 		<ThemeProvider theme={getTheme(displayValue)}>
 			<DisplayCanvas>
 				<DisplayContainer>
-					<div style={{ marginBottom: '20px' }}>
+					<DisplayInnerContainer>
 						<SecondaryDisplayBlock
 							type="oelValue"
 							value={oelValue}
@@ -169,7 +169,7 @@ const DisplaySection: React.FC<Props> = ({
 							type="displayOtherNomenclatures"
 							value={displayOtherNomenclatures}
 						/>
-					</div>
+					</DisplayInnerContainer>
 				</DisplayContainer>
 				<SpacingContainer></SpacingContainer>
 			</DisplayCanvas>
