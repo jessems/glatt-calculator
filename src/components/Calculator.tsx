@@ -15,7 +15,7 @@ import { getTheme } from '../utils';
 
 const InputSection = styled.div`
 	display: flex;
-	height: 33vh;
+	height: 33%;
 	width: 100%;
 	box-sizing: border-box;
 	justify-content: center;

@@ -6,7 +6,7 @@ import { device } from '../device';
 const DisplayCanvas = styled.div`
 	background: ${props => props.theme.backgroundColor};
 	color: ${props => props.theme.textColor};
-	height: 100vh;
+	height: 100%;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
@@ -19,7 +19,7 @@ const DisplayContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	height: 67vh;
+	height: 67%;
 `;
 
 const DisplayInnerContainer = styled.div`
@@ -31,7 +31,7 @@ const DisplayInnerContainer = styled.div`
 
 const SpacingContainer = styled.div`
 	display: 'flex';
-	height: 33vh;
+	height: 33%;
 	width: 100vw;
 `;
 
