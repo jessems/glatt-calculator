@@ -11,9 +11,6 @@ export type CalcState = {
 const re = new RegExp(/^([0-9]+\.?[0-9]*|\.[0-9]+)$/);
 
 const getStateFromSelectInput = (currentState: CalcState) : CalcState => {
-	// currentState.oelValue = (currentState.sliderValue * currentState.multiplicationFactor * 1/100).toString();
-	// currentState.numberInputValue = currentState.oelValue;
-
 	// If the numberInputValue exceeds the selected range, reset to the range's max value
 	if (parseFloat(currentState.numberInputValue) > currentState.multiplicationFactor) {
 		currentState.numberInputValue = currentState.multiplicationFactor.toString();

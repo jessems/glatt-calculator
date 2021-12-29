@@ -17,22 +17,25 @@ const InputSection = styled.div`
 	display: flex;
 	height: 33vh;
 	width: 100%;
+	box-sizing: border-box;
 	justify-content: center;
 	background-color: ${props => props.theme.backgroundColor};
 	color: ${props => props.theme.textColor};
 	@media ${device.tablet} {
-		padding-bottom: 10vh;
 	}
 `;
 
 const InputPanel = styled.div`
 	display: flex;
+	position: absolute;
+	bottom: 0;
 	justify-content: center;
 	background: rgb(0, 30, 60);
 	padding: 32px;
 	border-radius: 20px 20px 0 0;
 	margin-top: -20px;
-	width: 100%;
+	box-sizing: border-box;
+	width: 100vw;
 	box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
 		6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
 		12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
@@ -42,6 +45,7 @@ const InputPanel = styled.div`
 
 	@media ${device.tablet} {
 		border-radius: 20px 20px 20px 20px;
+		margin-bottom: 40px;
 		width: auto;
 	}
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { getTheme } from '../utils';
+import { device } from '../device';
 
 const DisplayCanvas = styled.div`
 	background: ${props => props.theme.backgroundColor};
@@ -14,8 +15,24 @@ const DisplayCanvas = styled.div`
 `;
 
 const DisplayContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 67vh;
+`;
+
+const DisplayInnerContainer = styled.div`
+	margin-bottom: 20px;
+	@media ${device.tablet} {
+		margin-bottom: 0px;
+	}
+`;
+
+const SpacingContainer = styled.div`
 	display: 'flex';
-	align-items: 'center';
+	height: 33vh;
+	width: 100vw;
 `;
 
 const DisplayValue = styled.div`
@@ -64,7 +81,8 @@ const SecondaryDisplayBlock: React.FC<SecondaryDisplayBlockProps> = ({
 					display: 'block',
 					textTransform: 'uppercase',
 					padding: '8px',
-					fontSize: '12px'
+					fontSize: '12px',
+					textAlign: 'center'
 				}}
 			>
 				{type === 'oelValue' ? `OEL Value` : `Other Nomenclatures`}
@@ -138,16 +156,22 @@ const DisplaySection: React.FC<Props> = ({
 		<ThemeProvider theme={getTheme(displayValue)}>
 			<DisplayCanvas>
 				<DisplayContainer>
-					<SecondaryDisplayBlock type="oelValue" value={oelValue} />
-					<PrimaryDisplayBlock
-						displayValue={displayValue}
-						displayString={displayString}
-					/>
-					<SecondaryDisplayBlock
-						type="displayOtherNomenclatures"
-						value={displayOtherNomenclatures}
-					/>
+					<div style={{ marginBottom: '20px' }}>
+						<SecondaryDisplayBlock
+							type="oelValue"
+							value={oelValue}
+						/>
+						<PrimaryDisplayBlock
+							displayValue={displayValue}
+							displayString={displayString}
+						/>
+						<SecondaryDisplayBlock
+							type="displayOtherNomenclatures"
+							value={displayOtherNomenclatures}
+						/>
+					</div>
 				</DisplayContainer>
+				<SpacingContainer></SpacingContainer>
 			</DisplayCanvas>
 		</ThemeProvider>
 	);
