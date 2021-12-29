@@ -30,6 +30,9 @@ const Logo = styled.img`
 `;
 
 function App() {
+	useEffect(() => {
+		document.title = 'Glatt Calculator';
+	}, []);
 	return (
 		<Div100vh>
 			<Container>
