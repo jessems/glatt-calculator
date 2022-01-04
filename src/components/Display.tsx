@@ -51,6 +51,31 @@ const DisplayString = styled.div`
 	text-align: center;
 `;
 
+const SecondaryBlockInnerContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 16px;
+	@media ${device.tablet} {
+		padding: 32px;
+	}
+	@media ${device.laptop} {
+		padding: 48px;
+	}
+`;
+
+const SecondaryBlockLabel = styled.div`
+	display: 'block';
+	text-transform: 'uppercase';
+	padding: '8px';
+	font-size: '12px';
+	text-align: center;
+	margin: 0 0 8px 0;
+`;
+const SecondaryBlockValue = styled.div`
+	display: 'block';
+`;
+
 const PrimaryDisplayBlock: React.FC<any> = ({
 	displayValue,
 	displayString
@@ -68,33 +93,18 @@ const SecondaryDisplayBlock: React.FC<SecondaryDisplayBlockProps> = ({
 	value
 }) => {
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				padding: '32px'
-			}}
-		>
-			<div
-				style={{
-					display: 'block',
-					textTransform: 'uppercase',
-					padding: '8px',
-					fontSize: '12px',
-					textAlign: 'center'
-				}}
-			>
+		<SecondaryBlockInnerContainer>
+			<SecondaryBlockLabel>
 				{type === 'oelValue' ? `OEL Value` : `Other Nomenclatures`}
-			</div>
-			<div style={{ display: 'block' }}>
+			</SecondaryBlockLabel>
+			<SecondaryBlockValue>
 				{type === 'oelValue' ? (
 					<OelValueDisplay value={value} />
 				) : (
 					<NomenclatureDisplay value={value} />
 				)}
-			</div>
-		</div>
+			</SecondaryBlockValue>
+		</SecondaryBlockInnerContainer>
 	);
 };
 
@@ -125,7 +135,16 @@ const OelValueDisplay: React.FC<SecondaryBlockProps> = ({ value }) => {
 	if (value) {
 		return (
 			<span>
-				{value} &mu;g/m<sup>3</sup>
+				{value} &mu;g/m
+				<sup
+					style={{
+						verticalAlign: 'baseline', // prevent sup from affecting lineheight
+						position: 'relative',
+						top: '-0.4em'
+					}}
+				>
+					3
+				</sup>
 			</span>
 		);
 	} else {

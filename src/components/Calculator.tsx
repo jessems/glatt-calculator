@@ -31,7 +31,10 @@ const InputPanel = styled.div`
 	bottom: 0;
 	justify-content: center;
 	background: rgb(0, 30, 60);
-	padding: 32px;
+	padding-bottom: 32px;
+	padding-top: 32px;
+	padding-left: 128px;
+	padding-right: 128px;
 	border-radius: 20px 20px 0 0;
 	margin-top: -20px;
 	box-sizing: border-box;
@@ -105,7 +108,10 @@ const FormTitle = styled.div`
 	font-size: 13px;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 48px;
+	margin-bottom: 24px;
+	@media ${device.tablet} {
+		margin-bottom: 48px;
+	}
 `;
 
 const Calculator: React.FC<{}> = () => {
@@ -183,6 +189,7 @@ const Calculator: React.FC<{}> = () => {
 									value={inputValue?.multiplicationFactor}
 									label="Range"
 									role="material-select"
+									style={{ minWidth: '100%' }}
 									onChange={event =>
 										setInputValue(
 											Calc.getStateFromSelectInput({
