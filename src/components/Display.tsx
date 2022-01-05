@@ -11,7 +11,7 @@ const DisplayCanvas = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 `;
 
 const DisplayContainer = styled.div`
@@ -19,7 +19,7 @@ const DisplayContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	height: 67%;
+	/* height: 50%; */
 `;
 
 const DisplayInnerContainer = styled.div`
@@ -27,12 +27,13 @@ const DisplayInnerContainer = styled.div`
 	@media ${device.tablet} {
 		margin-bottom: 0px;
 	}
-`;
 
-const SpacingContainer = styled.div`
-	display: 'flex';
-	height: 33%;
-	width: 100vw;
+	#nomenclature-block {
+		display: none;
+		@media ${device.mobileXSHeight} {
+			display: block;
+		}
+	}
 `;
 
 const DisplayValue = styled.div`
@@ -169,11 +170,13 @@ const DisplaySection: React.FC<Props> = ({
 	oelValue,
 	displayValue,
 	displayString,
-	displayOtherNomenclatures
+	displayOtherNomenclatures,
+	children
 }) => {
 	return (
 		<ThemeProvider theme={getTheme(displayValue)}>
 			<DisplayCanvas>
+				<div>&nbsp;</div>
 				<DisplayContainer>
 					<DisplayInnerContainer>
 						<SecondaryDisplayBlock
@@ -184,13 +187,16 @@ const DisplaySection: React.FC<Props> = ({
 							displayValue={displayValue}
 							displayString={displayString}
 						/>
-						<SecondaryDisplayBlock
-							type="displayOtherNomenclatures"
-							value={displayOtherNomenclatures}
-						/>
+						<div id="nomenclature-block">
+							<SecondaryDisplayBlock
+								type="displayOtherNomenclatures"
+								value={displayOtherNomenclatures}
+							/>
+						</div>
 					</DisplayInnerContainer>
 				</DisplayContainer>
-				<SpacingContainer></SpacingContainer>
+				{/* <SpacingContainer></SpacingContainer> */}
+				{children}
 			</DisplayCanvas>
 		</ThemeProvider>
 	);

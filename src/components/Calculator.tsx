@@ -13,9 +13,9 @@ import type {} from '@mui/lab/themeAugmentation';
 import { device } from '../device';
 import { getTheme } from '../utils';
 
-const InputSection = styled.div`
+export const InputSection = styled.div`
 	display: flex;
-	height: 33%;
+	/* height: 50%; */
 	width: 100%;
 	box-sizing: border-box;
 	justify-content: center;
@@ -27,16 +27,12 @@ const InputSection = styled.div`
 
 const InputPanel = styled.div`
 	display: flex;
-	position: absolute;
-	bottom: 0;
+	/* position: absolute; */
+	/* bottom: 0; */
 	justify-content: center;
 	background: rgb(0, 30, 60);
-	padding-bottom: 32px;
-	padding-top: 32px;
-	padding-left: 128px;
-	padding-right: 128px;
+	padding: 32px;
 	border-radius: 20px 20px 0 0;
-	margin-top: -20px;
 	box-sizing: border-box;
 	width: 100vw;
 	box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -101,6 +97,17 @@ const materialTheme = createTheme({
 	}
 });
 
+const TextInputContainer = styled.div`
+	padding-left: 48px;
+	padding-right: 48px;
+	padding-bottom: 16px;
+`;
+
+const SliderInputContainer = styled.div`
+	padding-left: 48px;
+	padding-right: 48px;
+`;
+
 const FormTitle = styled.div`
 	color: hsl(240, 26%, 60%);
 	text-transform: uppercase;
@@ -149,78 +156,101 @@ const Calculator: React.FC<{}> = () => {
 					inputValue?.displayOtherNomenclatures
 				}
 				theme={getTheme(inputValue?.displayValue)}
-			/>
-			<InputSection theme={getTheme(inputValue?.displayValue)}>
-				<InputPanel>
-					<form>
-						<Box>
-							<FormTitle>Enter a value below</FormTitle>
-							<InputLabel id="oel-value-label">
-								OEL value of the API
-							</InputLabel>
-							<OutlinedInput
-								id="outlined-adornment-weight"
-								value={inputValue?.oelValue}
-								role="material-input"
-								onChange={event =>
-									setInputValue(
-										Calc.getStateFromNumberInput({
-											...inputValue,
-											numberInputValue: event.target.value
-										} as CalcState)
-									)
-								}
-								color="primary"
-								endAdornment={
-									<InputAdornment position="end">
-										&mu;g/m<sup>3</sup>
-									</InputAdornment>
-								}
-								aria-describedby="outlined-weight-helper-text"
-								inputProps={{
-									'aria-label': 'weight'
-								}}
-							/>
-							<div>
-								<InputLabel id="range-label">Range</InputLabel>
-								<Select
-									labelId="range-label"
-									id="demo-simple-select-helper"
-									value={inputValue?.multiplicationFactor}
-									label="Range"
-									role="material-select"
-									style={{ minWidth: '100%' }}
-									onChange={event =>
-										setInputValue(
-											Calc.getStateFromSelectInput({
-												...inputValue,
-												multiplicationFactor:
-													event.target.value
-											} as CalcState)
-										)
-									}
-								>
-									<MenuItem value={0.1}>0.0 - 0.1</MenuItem>
-									<MenuItem value={1}>0.0 - 1.0</MenuItem>
-									<MenuItem value={10}>0 - 10</MenuItem>
-									<MenuItem value={100}>0 - 100</MenuItem>
-									<MenuItem value={1000}>0 - 1000</MenuItem>
-									<MenuItem value={5000}>0 - 5000</MenuItem>
-								</Select>
-							</div>
-							<div style={{ width: '100%' }}>
-								<Slider
-									id="input-slider"
-									role="material-slider"
-									value={inputValue?.sliderValue}
-									onChange={handleSliderChange}
-									aria-labelledby="input-slider"
-								/>
-							</div>
-						</Box>
-					</form>
-				</InputPanel>
-			</InputSection>
+			>
+				<InputSection theme={getTheme(inputValue?.displayValue)}>
+					<InputPanel>
+						<form>
+							<Box>
+								<FormTitle>Enter a value below</FormTitle>
+								<TextInputContainer>
+									<InputLabel id="oel-value-label">
+										OEL value of the API
+									</InputLabel>
+									<OutlinedInput
+										id="outlined-adornment-weight"
+										value={inputValue?.oelValue}
+										role="material-input"
+										onChange={event =>
+											setInputValue(
+												Calc.getStateFromNumberInput({
+													...inputValue,
+													numberInputValue:
+														event.target.value
+												} as CalcState)
+											)
+										}
+										color="primary"
+										endAdornment={
+											<InputAdornment position="end">
+												&mu;g/m<sup>3</sup>
+											</InputAdornment>
+										}
+										aria-describedby="outlined-weight-helper-text"
+										inputProps={{
+											'aria-label': 'weight'
+										}}
+									/>
+									<div>
+										<InputLabel id="range-label">
+											Range
+										</InputLabel>
+										<Select
+											labelId="range-label"
+											id="demo-simple-select-helper"
+											value={
+												inputValue?.multiplicationFactor
+											}
+											label="Range"
+											role="material-select"
+											style={{ minWidth: '100%' }}
+											onChange={event =>
+												setInputValue(
+													Calc.getStateFromSelectInput(
+														{
+															...inputValue,
+															multiplicationFactor:
+																event.target
+																	.value
+														} as CalcState
+													)
+												)
+											}
+										>
+											<MenuItem value={0.1}>
+												0.0 - 0.1
+											</MenuItem>
+											<MenuItem value={1}>
+												0.0 - 1.0
+											</MenuItem>
+											<MenuItem value={10}>
+												0 - 10
+											</MenuItem>
+											<MenuItem value={100}>
+												0 - 100
+											</MenuItem>
+											<MenuItem value={1000}>
+												0 - 1000
+											</MenuItem>
+											<MenuItem value={5000}>
+												0 - 5000
+											</MenuItem>
+										</Select>
+									</div>
+								</TextInputContainer>
+								<SliderInputContainer>
+									<Slider
+										id="input-slider"
+										role="material-slider"
+										value={inputValue?.sliderValue}
+										onChange={handleSliderChange}
+										aria-labelledby="input-slider"
+									/>
+								</SliderInputContainer>
+							</Box>
+						</form>
+					</InputPanel>
+				</InputSection>
+			</DisplaySection>
 		</ThemeProvider>
 	);
 };
