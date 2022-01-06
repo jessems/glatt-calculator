@@ -28,7 +28,7 @@ const DisplayInnerContainer = styled.div`
 		margin-bottom: 0px;
 	}
 
-	#nomenclature-block {
+	#oel-value-block {
 		display: none;
 		@media ${device.mobileXSHeight} {
 			display: block;
@@ -179,10 +179,12 @@ const DisplaySection: React.FC<Props> = ({
 				<div>&nbsp;</div>
 				<DisplayContainer>
 					<DisplayInnerContainer>
-						<SecondaryDisplayBlock
-							type="oelValue"
-							value={oelValue}
-						/>
+						<div id="oel-value-block">
+							<SecondaryDisplayBlock
+								type="oelValue"
+								value={oelValue}
+							/>
+						</div>
 						<PrimaryDisplayBlock
 							displayValue={displayValue}
 							displayString={displayString}

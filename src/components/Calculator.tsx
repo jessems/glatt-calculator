@@ -113,9 +113,12 @@ const FormTitle = styled.div`
 	text-transform: uppercase;
 	font-weight: 400;
 	font-size: 13px;
-	display: flex;
 	justify-content: center;
 	margin-bottom: 24px;
+	display: none;
+	@media ${device.mobileXSHeight} {
+		display: flex;
+	}
 	@media ${device.tablet} {
 		margin-bottom: 48px;
 	}
