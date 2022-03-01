@@ -71,7 +71,7 @@ const getUpdatedDisplayValues = (calcState: CalcState): CalcState => {
 		calcState.displayValue = '3b';
 		calcState.displayString = 'Highly hazardous';
 		calcState.displayOtherNomenclatures = '4';
-	} else if (parseFloat(calcState.numberInputValue) <= 100) {
+	} else if (parseFloat(calcState.numberInputValue) < 100) {
 		calcState.displayValue = '3a';
 		calcState.displayString = 'Hazardous';
 		calcState.displayOtherNomenclatures = '3';

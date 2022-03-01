@@ -20,7 +20,7 @@ const Container = styled.div`
 const Logo = styled.img`
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	max-width: 80px;
 	margin: 16px;
 	mix-blend-mode: overlay;
