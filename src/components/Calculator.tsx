@@ -109,19 +109,28 @@ const SliderInputContainer = styled.div`
 `;
 
 const FormTitle = styled.div`
-	color: hsl(240, 26%, 60%);
+	color: hsl(240, 40%, 80%);
 	text-transform: uppercase;
-	font-weight: 400;
+	font-weight: 600;
 	font-size: 13px;
 	justify-content: center;
-	margin-bottom: 24px;
+	margin-bottom: 32px;
 	display: none;
 	@media ${device.mobileXSHeight} {
 		display: flex;
 	}
 	@media ${device.tablet} {
-		margin-bottom: 48px;
+		margin-bottom: 32px;
 	}
+`;
+
+const SecondFormTitle = styled(FormTitle)`
+	margin-top: 32px;
+`;
+
+const Or = styled(FormTitle)`
+	margin-top: 24px;
+	font-size: 11px;
 `;
 
 const Calculator: React.FC<{}> = () => {
@@ -164,7 +173,7 @@ const Calculator: React.FC<{}> = () => {
 					<InputPanel>
 						<form>
 							<Box>
-								<FormTitle>Enter a value below</FormTitle>
+								<FormTitle>Enter OEL value below</FormTitle>
 								<TextInputContainer>
 									<InputLabel id="oel-value-label">
 										OEL value of the API
@@ -194,6 +203,10 @@ const Calculator: React.FC<{}> = () => {
 										}}
 									/>
 									<div>
+										<Or>— Or —</Or>
+										<SecondFormTitle>
+											set the range and slider
+										</SecondFormTitle>
 										<InputLabel id="range-label">
 											Range
 										</InputLabel>
@@ -240,6 +253,7 @@ const Calculator: React.FC<{}> = () => {
 										</Select>
 									</div>
 								</TextInputContainer>
+
 								<SliderInputContainer>
 									<Slider
 										id="input-slider"
