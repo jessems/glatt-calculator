@@ -197,7 +197,6 @@ const DisplaySection: React.FC<Props> = ({
 						</div>
 					</DisplayInnerContainer>
 				</DisplayContainer>
-				{/* <SpacingContainer></SpacingContainer> */}
 				{children}
 			</DisplayCanvas>
 		</ThemeProvider>
