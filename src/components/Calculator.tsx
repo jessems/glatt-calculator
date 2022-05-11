@@ -125,22 +125,6 @@ const SliderInputContainer = styled.div<Props>`
 	display: ${props => (props.visibility === 'true' ? 'block' : 'none')};
 `;
 
-const FormTitle = styled.div`
-	color: hsl(240, 40%, 80%);
-	text-transform: uppercase;
-	font-weight: 600;
-	font-size: 13px;
-	justify-content: center;
-	margin-bottom: 8px;
-	display: none;
-	@media ${device.mobileXSHeight} {
-		display: flex;
-	}
-	@media ${device.tablet} {
-		margin-bottom: 8px;
-	}
-`;
-
 const ToggleContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -197,7 +181,6 @@ const Calculator: React.FC<{}> = () => {
 					<InputPanel>
 						<form>
 							<Box>
-								{/* <FormTitle>Input method</FormTitle> */}
 								<div></div>
 								<ToggleContainer>
 									<ToggleButtonGroup
